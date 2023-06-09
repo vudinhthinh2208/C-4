@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Assignment_thinhvdph26886.Models.Bill>
+@{
+    ViewData["Title"] = "ShowListBill";
+}
+<center><h1 style="color:darkorchid">BILL</h1></center>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                TIME
+            </th>
+            <th>
+                USER
+            </th>
+            <th>
+                STATUS
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td style="color:indigo">
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @foreach (var user in ViewData["User"] as SelectList)
+                 {
+                  if (user.Value == item.UserID.ToString())
+                  {
+                      @user.Text
+                    }
+                 }
+            </td>
+                <td style="color:indigo">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+            <td>
+                    <button class="btn btn-warning"> @Html.ActionLink("BILLDETAIL", "BillDetail","BillDetail", new { id=item.Id  })</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

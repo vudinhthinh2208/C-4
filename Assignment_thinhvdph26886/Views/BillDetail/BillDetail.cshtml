@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Assignment_thinhvdph26886.Models.BillDetails>
+
+@{
+    ViewData["Title"] = "BillDetail";
+    var tong = ViewBag.tongtien;
+}
+
+<center style="color:chocolate"><h1>Bill Details</h1></center>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Color
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Pay
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @foreach (var product in ViewData["Name"] as SelectList)
+                 {
+                  if (product.Value == item.IdSP.ToString())
+                  {
+                   @product.Text
+                    }
+                 }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @foreach (var product in ViewData["Color"] as SelectList)
+                 {
+                  if (product.Value == item.IdSP.ToString())
+                  {
+                   @product.Text
+                    }
+                 }
+            </td>
+            <td>
+                @foreach (var product in ViewData["Description"] as SelectList)
+                 {
+                  if (product.Value == item.IdSP.ToString())
+                  {
+                      <img src="~/images/@product.Text" width="200px">
+                   
+                  }
+                 }
+            </td>
+            <td style="color:red">
+                    @((item.Price * item.Quantity).ToString("N0")) <a style="color:black">VNĐ</a>
+            </td>
+        </tr>
+}
+    
+    </tbody>
+    <h4>Money paid: <a style="color:red">@tong.ToString("N0")</a> <a style="color:black">VNĐ</a></h4>
+</table>

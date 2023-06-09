@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Assignment_thinhvdph26886.Models.Product>
+@inject IHttpContextAccessor http
+@{
+    ViewData["Title"] = "ShowListProduct";
+}
+@{
+    string role = http.HttpContext.Session.GetString("role");
+
+}
+<center><table><h1 style="color:orangered">ShowListProduct</h1></table></center>
+@{
+    ViewData["Title"] = "ShowListProduct";
+    List<string> imageExtensions = new List<string>()
+    {
+        ".png", ".jpg", ".jpeg", ".gif", ".tiff", ".pdf"
+    };
+}
+<br />
+<p>
+    <center> <a asp-action="Create">Create New</a></center>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvailableQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supplier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if(item.AvailableQuantity*item.Price > 10000000)
+                {
+                        <a style="color:yellow">@Html.DisplayFor(modelItem => item.Price)</a>
+                }
+               else
+               {
+                        @Html.DisplayFor(modelItem => item.Price)
+               }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvailableQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier)
+            </td>
+                <td>
+                    @{
+                        string extension = System.IO.Path.GetExtension(item.Description);
+                    }
+                    @if (imageExtensions.Contains(extension.Trim()))
+                    {
+                        <img src="~/images/@item.Description" height="100px">
+                    }
+                    else
+                    {
+                        <img src="~/images/default.png" height="100px">
+                    }
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                    @if (role == "Quản lý"){
+                        <button style="background-color:chocolate">@Html.ActionLink("Edit", "Edit", new { id=item.ID }) </button>
+                        <button style="background-color:chocolate">@Html.ActionLink("Delete", "Delete", new { id=item.ID })</button>
+                    }
+                    <button style="background-color:chocolate">@Html.ActionLink("Details", "Details", new { id=item.ID }) </button>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,88 @@
+﻿@model Assignment_thinhvdph26886.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+    var a = Context.Session.GetString("username");
+}
+
+<center><h1 style="color:red">Product details</h1></center>
+
+<div>
+    
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @*@Html.DisplayNameFor(model => model.ID)*@
+        </dt>
+        <dd class = "col-sm-10">
+            @*@Html.DisplayFor(model => model.ID)*@
+        </dd>
+        <dt class = "col-sm-2">
+            Name
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Price
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class = "col-sm-2">
+            AvaillableQuantity
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AvailableQuantity)
+        </dd>
+        <dt class = "col-sm-2">
+            Color
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+        <dt class = "col-sm-2">
+            Status
+        </dt>
+        <dd class = "col-sm-10">
+            @(Model.Status==0 ? "Hết hàng":"Còn hàng")
+        </dd>
+        <dt class = "col-sm-2">
+            Supplier
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Supplier)
+        </dd>
+        <dt class = "col-sm-2">
+            Description
+        </dt>
+        <dd class = "col-sm-10">
+             <img src="~/images/@Model.Description" width="200px">
+        </dd>
+        
+    </dl>
+</div>
+<div>
+    <form method="post" asp-action="AddToCart" asp-controller="Cart">
+                         <div class="d-flex flex-row">
+                                 <p style="height:10px">Số lượng</p>
+@*                          <button class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                            <i class="fas fa-minus"></i>
+                          </button>*@
+      
+                          <input id="form1" min="0" name="quantity" max="@Model.AvailableQuantity" value="1" type="number"
+                            class="form-control form-control-sm" style="width: 70px;" />
+      
+@*                          <button class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                            <i class="fas fa-plus"></i>
+                          </button>*@
+                        </div>
+                        <div class="buttons d-flex flex-row mt-5 gap-3"> @*<button class="btn btn-outline-dark">Mua
+                                ngay</button>*@
+                                <input type="hidden" name="ProductID" value="@Model.ID" />  
+                            <button class="btn btn-dark" type="submit" style="background-color:red" >  Thêm giỏ hàng   </button>
+                        </div>
+                            </form>
+</div>

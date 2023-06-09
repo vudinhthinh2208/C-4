@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Assignment_thinhvdph26886.Models.Role>
+
+@{
+    ViewData["Title"] = "ShowListRole";
+}
+
+<center><h1 style="color:cornflowerblue">ROLE</h1></center>
+
+<p>
+    <a class="btn btn-warning" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ROLE
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @(item.Status==0?"Không hoạt động":"Hoạt động")
+            </td>
+            <td>
+               <button style="background-color:brown" class="btn btn-warning">@Html.ActionLink("Edit", "Edit", new { id=item.RoleID  })</button>
+                    <button style="background-color:green" class="btn btn-warning">@Html.ActionLink("Details", "Details", new { id=item.RoleID  })</button>
+                    <button style="background-color:darkgoldenrod" class="btn btn-warning">@Html.ActionLink("Delete", "Delete", new {  id=item.RoleID  })</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

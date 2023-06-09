@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Assignment_thinhvdph26886.Models.User>
+
+@{
+    ViewData["Title"] = "ShowListUser";
+}
+
+<center><h1 style="color:chocolate">User</h1></center>
+
+<p>
+    <a class="btn btn-warning" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                UserName
+            </th>
+            <th>
+                PASSWORD
+            </th>
+            <th>
+                Role
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @foreach (var role in ViewData["NameRole"] as SelectList)
+                 {
+                  if (role.Value == item.Role.ToString())
+                  {
+                      @role.Text
+                   }
+                 }
+            </td>
+            <td>
+                @(item.Status==0?"Không hoạt động":"Hoạt động")
+                
+            </td>
+            <td>
+               <button style="background-color:black" class="btn btn-warning">@Html.ActionLink("Edit", "Edit", new { id=item.UserID })</button>
+                    <button style ="background-color:dimgray" class="btn btn-warning">@Html.ActionLink("Details", "Details", new { id=item.UserID })</button>
+                    <button style="background-color:indigo" class="btn btn-warning">@Html.ActionLink("Delete", "Delete", new { id=item.UserID })</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
